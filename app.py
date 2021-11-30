@@ -41,8 +41,8 @@ def home():
         f"/api/v1.0/precipitation<br/>"
         f"/api/v1.0/stations<br/>"
         f"/api/v1.0/tobs<br/>"
-        f"/api/v1.0/<start>"
-        f"/api/v1.0/<start>/<end>"
+        f"/api/v1.0/start<br/>"
+        f"/api/v1.0/start/end"
 
         )
 #Precipitation Route
@@ -104,7 +104,8 @@ def Start(start):
     group_by(Measurement.date).all()
 
   # Convert List of Tuples Into Normal List
-  start_day_result = list(start_date)
+  start_day_result = [list(d) for d in start_date]
+  print(start_day_result)
   # Return JSON List of Min Temp, Avg Temp and Max Temp for a Given Start Range
   return jsonify(start_day_result)
 
@@ -120,7 +121,8 @@ def start_end_day(start, end):
                 filter(Measurement.date <= end).\
                 group_by(Measurement.date).all()
   # Convert List of Tuples Into Normal List
-  start_end_day_result = list(start_end_day)
+  start_end_day_result = [list(d) for d in start_end_day]
+  
   # Return JSON List of Min Temp, Avg Temp and Max Temp for a Given Start-End Range
   return jsonify(start_end_day_result)
 
